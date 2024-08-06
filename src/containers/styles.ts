@@ -11,5 +11,5 @@ export const Produtos = styled.ul`
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-  }
+  }s
 `
