@@ -7,6 +7,8 @@ import { GlobalStyle } from './styles'
 
 import { store } from './store'
 
+import favoritos from './store/reducers/favoritos'
+
 export type Produto = {
   id: number
   nome: string
@@ -15,39 +17,12 @@ export type Produto = {
 }
 
 function App() {
-  const [produtos, setProdutos] = useState<Produto[]>([])
-  const [favoritos, setFavoritos] = useState<Produto[]>([])
-
-  useEffect(() => {
-    fetch('https://fake-api-tau.vercel.app/api/ebac_sports')
-      .then((res) => res.json())
-      .then((res) => setProdutos(res))
-  }, [])
-
-  function favoritar(produto: Produto) {
-    if (favoritos.find((p) => p.id === produto.id)) {
-      const favoritosSemProduto = favoritos.filter((p) => p.id !== produto.id)
-      setFavoritos(favoritosSemProduto)
-    } else {
-      setFavoritos([...favoritos, produto])
-    }
-  }
-
-  function adicionarAoCarrinho() {
-    console.log('lorota')
-  }
-
   return (
     <Provider store={store}>
       <GlobalStyle />
       <div className="container">
-        <Header favoritos={favoritos} />
-        <Produtos
-          produtos={produtos}
-          favoritos={favoritos}
-          favoritar={favoritar}
-          adicionarAoCarrinho={adicionarAoCarrinho}
-        />
+        <Header />
+        <Produtos />
       </div>
     </Provider>
   )
